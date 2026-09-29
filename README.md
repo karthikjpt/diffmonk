@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/karthikjpt/diffmonk/main/assets/icon.png" alt="DiffMonk Logo" width="120" height="120">
+  <img src="https://raw.githubusercontent.com/karthikjpt/diffmonk/assets/icon.png" alt="DiffMonk Logo" width="120" height="120">
   <h1>DiffMonk</h1>
   <p><b>100% Local, Offline-Ready Secure Text & Code Comparison</b></p>
   
