@@ -1,0 +1,45 @@
+{
+  "name": "diffmonk",
+  "version": "1.0.1",
+  "description": "Secure Client-Side Text and Code Comparison",
+  "main": "main.js",
+  "author": "DiffMonk <support@diffmonk.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/karthikjpt/diffmonk.git"
+  },
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^30.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.diffmonk.app",
+    "productName": "DiffMonk",
+    "directories": {
+      "output": "dist",
+      "buildResources": "assets"
+    },
+    "files": [
+      "main.js",
+      "package.json",
+      "assets/*"
+    ],
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "category": "Development"
+    },
+    "win": {
+      "target": ["nsis"],
+      "icon": "assets/icon.ico"
+    },
+    "mac": {
+      "target": ["dmg", "zip"],
+      "icon": "assets/icon.png",
+      "identity": null
+    }
+  }
+}
