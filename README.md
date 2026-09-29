@@ -2,9 +2,11 @@
   <img src="assets/icon.png" alt="DiffMonk Logo" width="120" height="120">  <h1>DiffMonk</h1>
   <p><b>100% Local, Offline-Ready Secure Text & Code Comparison</b></p>
   
-  [![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](#downloads)
-  [![macOS](https://img.shields.io/badge/macOS-000000?style=for-the-badge&logo=apple&logoColor=white)](#downloads)
-  [![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)](#downloads)
+### Version 1.0.1 (Latest)
+
+* **Windows (64-bit):** [Download .exe](https://github.com/karthikjpt/diffmonk/releases/download/v1.0.1/DiffMonk-Setup-1.0.1.exe)
+* **macOS (Universal):** [Download .dmg](https://github.com/karthikjpt/diffmonk/releases/download/v1.0.1/DiffMonk-1.0.1-mac.zip)
+* **Linux (Debian/Ubuntu):** [Download .deb](https://github.com/karthikjpt/diffmonk/releases/download/v1.0.1/diffmonk_1.0.1_amd64.deb)
 
   <br>
   <i>Compare up to 4 text files instantly. 100% private, client-side diffing. Zero server uploads.</i>
