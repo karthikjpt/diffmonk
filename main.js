@@ -23,11 +23,20 @@ function createWindow() {
     callback({ cancel: false, requestHeaders: details.requestHeaders });
   });
 
+  // 🚨 NEW: Ensure native OS downloads work perfectly for compressed .gz database backups
+  session.defaultSession.on('will-download', (event, item, webContents) => {
+    item.setSaveDialogOptions({
+        title: 'Save DiffMonk Backup',
+        defaultPath: item.getFilename()
+    });
+  });
+
   const win = new BrowserWindow({
     width: 1400,
     height: 900,
     title: "DiffMonk",
     autoHideMenuBar: true,
+    fullscreenable: true,
     icon: path.join(__dirname, 'assets', 'icon.png'),
     webPreferences: {
       nodeIntegration: false,
