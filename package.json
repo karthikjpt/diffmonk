@@ -26,15 +26,24 @@
     "files": [
       "main.js",
       "package.json",
-      "assets/*"
+      "assets/**/*"
     ],
     "linux": {
       "target": ["AppImage", "deb"],
-      "category": "Development"
+      "category": "Development",
+      "icon": "assets/icon.png",
+      "executableName": "diffmonk",
+      "desktop": {
+        "StartupWMClass": "DiffMonk"
+      }
     },
     "win": {
       "target": ["nsis"],
       "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "installerIcon": "assets/icon.ico",
+      "uninstallerIcon": "assets/icon.ico"
     },
     "mac": {
       "target": ["dmg", "zip"],
