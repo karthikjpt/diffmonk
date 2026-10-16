@@ -1,11 +1,21 @@
 const { app, BrowserWindow, shell, session } = require('electron');
 const path = require('path');
 
+// Must match build.appId in package.json so the Windows taskbar/shortcut icon resolves correctly
+app.setAppUserModelId('com.diffmonk.app');
+
 // Hide the Electron/Automated flags from bot detection
 app.commandLine.appendSwitch('disable-blink-features', 'AutomationControlled');
 
 const FAKE_USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
 app.userAgentFallback = FAKE_USER_AGENT;
+
+// .ico on Windows (taskbar/titlebar), .png elsewhere
+const ICON_PATH = path.join(
+  __dirname,
+  'assets',
+  process.platform === 'win32' ? 'icon.ico' : 'icon.png'
+);
 
 function isAllowedInternalUrl(rawUrl) {
   try {
@@ -23,11 +33,11 @@ function createWindow() {
     callback({ cancel: false, requestHeaders: details.requestHeaders });
   });
 
-  // 🚨 NEW: Ensure native OS downloads work perfectly for compressed .gz database backups
+  // Ensure native OS downloads work perfectly for compressed .gz database backups
   session.defaultSession.on('will-download', (event, item, webContents) => {
     item.setSaveDialogOptions({
-        title: 'Save DiffMonk Backup',
-        defaultPath: item.getFilename()
+      title: 'Save DiffMonk Backup',
+      defaultPath: item.getFilename()
     });
   });
 
@@ -37,7 +47,7 @@ function createWindow() {
     title: "DiffMonk",
     autoHideMenuBar: true,
     fullscreenable: true,
-    icon: path.join(__dirname, 'assets', 'icon.png'),
+    icon: ICON_PATH,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -65,6 +75,11 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  // macOS dock icon (also covers `npm start` in dev)
+  if (process.platform === 'darwin' && app.dock) {
+    app.dock.setIcon(path.join(__dirname, 'assets', 'icon.png'));
+  }
+
   createWindow();
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
