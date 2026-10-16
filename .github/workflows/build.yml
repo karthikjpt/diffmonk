@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-latest, windows-latest, ubuntu-latest]
-    
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -25,6 +25,24 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
+
+      - name: Verify app icons
+        shell: bash
+        run: |
+          node -e "
+          const fs = require('fs');
+          const png = fs.readFileSync('assets/icon.png');
+          if (png.toString('ascii', 1, 4) !== 'PNG') throw new Error('assets/icon.png is not a valid PNG');
+          const w = png.readUInt32BE(16), h = png.readUInt32BE(20);
+          console.log('icon.png size:', w + 'x' + h);
+          if (w < 512 || h < 512 || w !== h) throw new Error('icon.png must be square and at least 512x512 (1024x1024 recommended)');
+          const ico = fs.readFileSync('assets/icon.ico');
+          if (ico.readUInt16LE(0) !== 0 || ico.readUInt16LE(2) !== 1) throw new Error('assets/icon.ico is not a valid ICO');
+          const n = ico.readUInt16LE(4), sizes = [];
+          for (let i = 0; i < n; i++) { const b = ico[6 + i * 16]; sizes.push(b === 0 ? 256 : b); }
+          console.log('icon.ico sizes:', sizes.join(', '));
+          if (!sizes.includes(256)) throw new Error('icon.ico must contain a 256x256 image');
+          "
 
       - name: Install Linux Dependencies
         if: matrix.os == 'ubuntu-latest'
